@@ -626,10 +626,10 @@ public class InAppBrowser extends CordovaPlugin {
                 }
 
 
+                main.addView(toolbar);
                 // Add our webview to our main view/layout
                 main.addView(inAppWebView);
 
-                main.addView(toolbar);
 
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
