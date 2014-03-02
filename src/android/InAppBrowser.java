@@ -468,8 +468,9 @@ public class InAppBrowser extends CordovaPlugin {
                 toolbar.setBackgroundColor(android.graphics.Color.LTGRAY);
                 toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
                 toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
-                toolbar.setVerticalGravity(Gravity.BOTTOM);
-                toolbar.setHorizontalGravity(Gravity.LEFT);
+                toolbar.setVerticalGravity(Gravity.TOP);
+                // toolbar.setHorizontalGravity(Gravity.LEFT);
+                toolbar.setHorizontalGravity(Gravity.RIGHT);
 
                 // Action Button Container layout
                 RelativeLayout actionButtonContainer = new RelativeLayout(cordova.getActivity());
@@ -624,10 +625,11 @@ public class InAppBrowser extends CordovaPlugin {
                     // toolbar.addView(edittext);
                 }
 
-                main.addView(toolbar);
 
                 // Add our webview to our main view/layout
                 main.addView(inAppWebView);
+
+                main.addView(toolbar);
 
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
