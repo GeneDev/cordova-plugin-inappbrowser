@@ -72,6 +72,7 @@ public class InAppBrowser extends CordovaPlugin {
     // private static final String BLANK = "_blank";
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
+    private static final String WHITE_BAR = "whitebar";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
     private static final String LOAD_STOP_EVENT = "loadstop";
@@ -85,6 +86,7 @@ public class InAppBrowser extends CordovaPlugin {
     private EditText edittext;
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
+    private boolean whiteBar = false;
     private boolean openWindowHidden = false;
     private String buttonLabel = "Done";
     private boolean clearAllCache= false;
@@ -408,6 +410,8 @@ public class InAppBrowser extends CordovaPlugin {
         // Determine if we should hide the location bar.
         showLocationBar = true;
         openWindowHidden = false;
+        whiteBar = false;
+
         if (features != null) {
             Boolean show = features.get(LOCATION);
             if (show != null) {
@@ -417,6 +421,11 @@ public class InAppBrowser extends CordovaPlugin {
             if (hidden != null) {
                 openWindowHidden = hidden.booleanValue();
             }
+            Boolean isWhite = features.get(WHITE_BAR);
+            if (isWhite != null) {
+                whiteBar = isWhite.booleanValue();
+            }
+
             Boolean cache = features.get(CLEAR_ALL_CACHE);
             if (cache != null) {
                 clearAllCache = cache.booleanValue();
@@ -465,7 +474,12 @@ public class InAppBrowser extends CordovaPlugin {
                 // Toolbar layout
                 RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
                 //Please, no more black! 
-                toolbar.setBackgroundColor(android.graphics.Color.LTGRAY);
+                if (whiteBar) {
+                    toolbar.setBackgroundColor(android.graphics.Color.WHITE);
+                }
+                else {
+                    toolbar.setBackgroundColor(android.graphics.Color.LTGRAY);
+                }
                 toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
                 toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
                 toolbar.setVerticalGravity(Gravity.TOP);
