@@ -469,8 +469,7 @@ public class InAppBrowser extends CordovaPlugin {
                 toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
                 toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
                 toolbar.setHorizontalGravity(Gravity.LEFT);
-                // toolbar.setVerticalGravity(Gravity.BOTTOM);
-                toolbar.setVerticalGravity(Gravity.CENTER_VERTICAL);
+                toolbar.setVerticalGravity(Gravity.BOTTOM);
 
                 // Action Button Container layout
                 RelativeLayout actionButtonContainer = new RelativeLayout(cordova.getActivity());
@@ -509,7 +508,7 @@ public class InAppBrowser extends CordovaPlugin {
                 // Forward button
                 Button forward = new Button(cordova.getActivity());
                 RelativeLayout.LayoutParams forwardLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-                forwardLayoutParams.addRule(RelativeLayout.RIGHT_OF, 2);
+                forwardLayoutParams.addRule(RelativeLayout.RIGHT_OF, 12);
                 forward.setLayoutParams(forwardLayoutParams);
                 forward.setContentDescription("Forward Button");
                 forward.setId(3);
