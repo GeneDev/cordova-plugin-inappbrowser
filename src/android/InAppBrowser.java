@@ -362,6 +362,9 @@ public class InAppBrowser extends CordovaPlugin {
         if (this.inAppWebView.canGoBack()) {
             this.inAppWebView.goBack();
         }
+        else {
+            closeDialog();
+        }
     }
 
     /**
