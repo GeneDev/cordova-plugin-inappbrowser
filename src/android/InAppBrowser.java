@@ -285,13 +285,20 @@ public class InAppBrowser extends CordovaPlugin {
             HashMap<String, Boolean> map = new HashMap<String, Boolean>();
             StringTokenizer features = new StringTokenizer(optString, ",");
             StringTokenizer option;
+            
+            this.barColor = null;
+            this.buttonLabel = "Done";
             while(features.hasMoreElements()) {
                 option = new StringTokenizer(features.nextToken(), "=");
                 if (option.hasMoreElements()) {
                     String key = option.nextToken();
                     if (key.equalsIgnoreCase(CLOSE_BUTTON_CAPTION)) {
                         this.buttonLabel = option.nextToken();
-                    } else {
+                    } 
+                    else if (key.equalsIgnoreCase(NAVBAR_COLOR)) {
+                        this.barColor = option.nextToken();
+                    }
+                        else {
                         Boolean value = option.nextToken().equals("no") ? Boolean.FALSE : Boolean.TRUE;
                         map.put(key, value);
                     }
@@ -416,7 +423,6 @@ public class InAppBrowser extends CordovaPlugin {
         showLocationBar = true;
         openWindowHidden = false;
         whiteBar = false;
-        barColor = null;
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
@@ -430,12 +436,6 @@ public class InAppBrowser extends CordovaPlugin {
             Boolean isWhite = features.get(WHITE_BAR);
             if (isWhite != null) {
                 whiteBar = isWhite.booleanValue();
-            }
-
-            String navColor = features.get(NAVBAR_COLOR);
-            if (navColor != null) {
-                // string representation
-                barColor = navColor;
             }
 
             Boolean cache = features.get(CLEAR_ALL_CACHE);
@@ -487,9 +487,9 @@ public class InAppBrowser extends CordovaPlugin {
                 RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
                 //Please, no more black! 
                 if (barColor != null) {
-                    int color = android.graphics.LTGRAY;
+                    int color = android.graphics.Color.LTGRAY;
                     try {
-                        color = android.graphics.parseColor(barColor);
+                        color = android.graphics.Color.parseColor(barColor);
                     } 
                     catch (IllegalArgumentException e){
                     }
