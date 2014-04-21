@@ -73,6 +73,7 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String EXIT_EVENT = "exit";
     private static final String LOCATION = "location";
     private static final String WHITE_BAR = "whitebar";
+    private static final String NAVBAR_COLOR = "navbarcolor";
     private static final String HIDDEN = "hidden";
     private static final String LOAD_START_EVENT = "loadstart";
     private static final String LOAD_STOP_EVENT = "loadstop";
@@ -87,6 +88,7 @@ public class InAppBrowser extends CordovaPlugin {
     private CallbackContext callbackContext;
     private boolean showLocationBar = true;
     private boolean whiteBar = false;
+    private String barColor = null;
     private boolean openWindowHidden = false;
     private String buttonLabel = "Done";
     private boolean clearAllCache= false;
@@ -414,6 +416,7 @@ public class InAppBrowser extends CordovaPlugin {
         showLocationBar = true;
         openWindowHidden = false;
         whiteBar = false;
+        barColor = null;
 
         if (features != null) {
             Boolean show = features.get(LOCATION);
@@ -427,6 +430,12 @@ public class InAppBrowser extends CordovaPlugin {
             Boolean isWhite = features.get(WHITE_BAR);
             if (isWhite != null) {
                 whiteBar = isWhite.booleanValue();
+            }
+
+            String navColor = features.get(NAVBAR_COLOR);
+            if (navColor != null) {
+                // string representation
+                barColor = navColor;
             }
 
             Boolean cache = features.get(CLEAR_ALL_CACHE);
@@ -477,7 +486,16 @@ public class InAppBrowser extends CordovaPlugin {
                 // Toolbar layout
                 RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
                 //Please, no more black! 
-                if (whiteBar) {
+                if (barColor != null) {
+                    int color = android.graphics.LTGRAY;
+                    try {
+                        color = android.graphics.parseColor(barColor);
+                    } 
+                    catch (IllegalArgumentException e){
+                    }
+                    toolbar.setBackgroundColor(color);
+                }
+                else if (whiteBar) {
                     toolbar.setBackgroundColor(android.graphics.Color.WHITE);
                 }
                 else {
